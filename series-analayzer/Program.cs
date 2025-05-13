@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace series_analayzer
@@ -75,21 +76,26 @@ namespace series_analayzer
 
         static void showSortSeries(List<int> numbers)
         {
-            List<int> originalList = numbers;
-            for (int i = 0; i < numbers.Count - 1; i++)
+            List<int> sortedList = new List<int>(numbers);
+            for (int i = 0; i < sortedList.Count - 1; i++)
             {
-                for (int j = 0; j < numbers.Count - i - 1; j++)
+                bool isSort = true;
+                for (int j = 0; j < sortedList.Count - i - 1; j++)
                 {
-                    if (numbers[j] > numbers[j + 1])
+                    if (sortedList[j] > sortedList[j + 1])
                     {
-                        int temp = numbers[j + 1];
-                        numbers[j + 1] = numbers[j];
-                        numbers[j] = temp;
+                        int temp = sortedList[j + 1];
+                        sortedList[j + 1] = sortedList[j];
+                        sortedList[j] = temp;
+                        isSort = false;
                     }
                 }
+                if (isSort)
+                {
+                    break;
+                }
             }
-            Console.WriteLine($"Your sorted list is: [{string.Join(", ", numbers)}]");
-            numbers = originalList;
+            Console.WriteLine($"Your sorted list is: [{string.Join(", ", sortedList)}]");
         }
 
         static void showMaxValue(List<int> numbers)
