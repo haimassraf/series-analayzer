@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace series_analayzer
 {
@@ -45,7 +42,7 @@ namespace series_analayzer
         {
             List<string> userList = new List<string>();
             string userChoice;
-            Console.WriteLine("Please enter a series of positive numbers(at list 3 numbers) or X for end the series: ");
+            Console.WriteLine("Please enter a series of positive numbers (at list 3 numbers) or 'X' for end the series: ");
             do
             {
                 userChoice = Console.ReadLine();
@@ -173,7 +170,7 @@ namespace series_analayzer
         {
             List<string> userList;
             userList = args.ToList();
-            //if the programer enter series strate to the args of the Main
+            //if the programmer enter series straight to the args of the Main
 
             while (!isValidSeries(userList))
             {
@@ -207,7 +204,7 @@ namespace series_analayzer
                             {
                                 Console.WriteLine("Wrong series, enter a new series again.\n");
                             }
-                        } while ((!isValidSeries(userList)));
+                        } while (!isValidSeries(userList));
                     }
                     else if (choice == 2) { showSeries(numbers); }
                     else if (choice == 3) { showReversSeries(numbers); }
@@ -228,4 +225,3 @@ namespace series_analayzer
         }
     }
 }
-
