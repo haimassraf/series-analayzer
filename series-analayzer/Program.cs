@@ -45,9 +45,9 @@ namespace series_analayzer
         {
             List<string> userList = new List<string>();
             string userChoice;
+            Console.WriteLine("Please enter a series of positive numbers(at list 3 numbers) or X for end the series: ");
             do
             {
-                Console.WriteLine("Please enter a series of positive numbers(at list 3 numbers) or X for end the series: ");
                 userChoice = Console.ReadLine();
                 userList.Add(userChoice);
             } while (userChoice != "X");
@@ -169,60 +169,63 @@ namespace series_analayzer
             Console.WriteLine("\t0. Exit the program");
         }
 
-        static void Main(string[] args)
+        static void Main(string[] args = null)
         {
             List<string> userList;
-            do
+            userList = args.ToList();
+            //if the programer enter series strate to the args of the Main
+
+            while (!isValidSeries(userList))
             {
                 userList = GetUserChoiceSeries();
-                if (isValidSeries(userList))
-                {
-                    List<int> numbers = numbersInList(userList);
-                    menu();
-                    while (true)
-                    {
-                        string userChoice = Console.ReadLine();
-                        if (int.TryParse(userChoice, out int choice) && choice >= 0 && choice <= 9)
-                        {
-                            if (choice == 1)
-                            {
-                                do
-                                {
-                                    Console.WriteLine("Enter a new series: ");
-                                    userList = GetUserChoiceSeries();
-                                    if (isValidSeries(userList))
-                                    {
-                                        numbers = numbersInList(userList);
-                                        menu();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Wrong series, enter a new series again.\n");
-                                    }
-                                } while ((!isValidSeries(userList)));
-                            }
-                            else if (choice == 2) { showSeries(numbers); }
-                            else if (choice == 3) { showReversSeries(numbers); }
-                            else if (choice == 4) { showSortSeries(numbers); }
-                            else if (choice == 5) { showMaxValue(numbers); }
-                            else if (choice == 6) { showMinValue(numbers); }
-                            else if (choice == 7) { showAvarage(numbers); }
-                            else if (choice == 8) { showNumbersOfValues(numbers); }
-                            else if (choice == 9) { showSumOfValues(numbers); }
-                            else if (choice == 0) { break; }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input, try again\n");
-                        }
-                    }
-                    Console.WriteLine("Have a good day!");
-                }
-                else
+                if (!isValidSeries(userList))
                 {
                     Console.WriteLine("Wrong series! Please enter again\n");
                 }
-            } while (!isValidSeries(userList));
+            }
+
+            List<int> numbers = numbersInList(userList);
+            //filter the positive numbers to a new list
+            menu();
+            while (true)
+            {
+                string userChoice = Console.ReadLine();
+                if (int.TryParse(userChoice, out int choice) && choice >= 0 && choice <= 9)
+                {
+                    if (choice == 1)
+                    {
+                        do
+                        {
+                            Console.WriteLine("Enter a new series: ");
+                            userList = GetUserChoiceSeries();
+                            if (isValidSeries(userList))
+                            {
+                                numbers = numbersInList(userList);
+                                menu();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Wrong series, enter a new series again.\n");
+                            }
+                        } while ((!isValidSeries(userList)));
+                    }
+                    else if (choice == 2) { showSeries(numbers); }
+                    else if (choice == 3) { showReversSeries(numbers); }
+                    else if (choice == 4) { showSortSeries(numbers); }
+                    else if (choice == 5) { showMaxValue(numbers); }
+                    else if (choice == 6) { showMinValue(numbers); }
+                    else if (choice == 7) { showAvarage(numbers); }
+                    else if (choice == 8) { showNumbersOfValues(numbers); }
+                    else if (choice == 9) { showSumOfValues(numbers); }
+                    else if (choice == 0) { break; }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, try again\n");
+                }
+            }
+            Console.WriteLine("Have a good day!");
         }
     }
 }
+
